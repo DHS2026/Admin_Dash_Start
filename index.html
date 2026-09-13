@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhainagar High School - Loading...</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden; /* স্ক্রলবার লুকানোর জন্য */
+      background-color: #f1f5f9;
+    }
+
+    /* ================= SPLASH SCREEN (START PAGE) CSS ================= */
+    #splashScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* একটি সুন্দর গ্রেডিয়েন্ট ব্যাকগ্রাউন্ড (স্কুলের থিম অনুযায়ী) */
+      background: linear-gradient(135deg, #1B5B6B 0%, #1976D2 100%);
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    }
+
+    /* ফেড-আউট হওয়ার জন্য ক্লাস */
+    #splashScreen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .splash-content {
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* লোগো অ্যানিমেশন (পালস ইফেক্ট) */
+    .school-logo {
+      width: 130px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+      filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.3));
+    }
+
+    .splash-content h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+    }
+
+    .splash-content p {
+      font-size: 14px;
+      color: #e0f2fe;
+      font-weight: 500;
+      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    /* সুন্দর প্রগ্রেস বার (Progress Bar) */
+    .loader-bar {
+      width: 220px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loader-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      background: #FBC02D; /* Accent Gold Color */
+      border-radius: 10px;
+      animation: slideLoad 1.5s infinite ease-in-out;
+    }
+
+    /* ================= ANIMATIONS ================= */
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.9; }
+    }
+
+    @keyframes slideLoad {
+      0% { left: -50%; width: 50%; }
+      50% { left: 25%; width: 50%; }
+      100% { left: 100%; width: 50%; }
+    }
+
+    /* ================= MAIN APP IFRAME ================= */
+    #mainAppFrame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 1; /* স্টার্ট পেজের ঠিক পেছনে থাকবে */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Start Page / Loading Screen -->
+  <div id="splashScreen">
+    <div class="splash-content">
+      <!-- আপনার GitHub-এ থাকা লোগোটির নাম ব্যবহার করা হয়েছে -->
+      <img src="Imresizer-unnamed_(1).png" alt="Dhainagar High School Logo" class="school-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/8074/8074804.png';">
+      
+      <h2>Dhainagar High School (H.S.)</h2>
+      <p>System is initializing, please wait...</p>
+      
+      <!-- Loading Animation Bar -->
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your Target Apps Script Link in Iframe -->
+  <iframe id="mainAppFrame" src="https://script.google.com/macros/s/AKfycbweVL8w9ErQemeckEx8MG81ih4K-L0FwfWlTG6sLcO0GgUsVXYFvvGuCg56PcrJ_VE/exec"></iframe>
+
+  <script>
+    // Iframe-টি সম্পূর্ণ লোড হওয়া পর্যন্ত জাভাস্ক্রিপ্ট অপেক্ষা করবে
+    const iframe = document.getElementById('mainAppFrame');
+    const splash = document.getElementById('splashScreen');
+
+    iframe.onload = function() {
+      // লোড সম্পূর্ণ হলে, একটি স্মুথ ফেড-আউট অ্যানিমেশনের মাধ্যমে স্টার্ট পেজটি সরিয়ে দেওয়া হবে
+      splash.classList.add('fade-out');
+      
+      // ফেড-আউট অ্যানিমেশনটি শেষ হওয়ার পর DOM থেকে এটিকে লুকিয়ে ফেলা
+      setTimeout(() => {
+        splash.style.display = 'none';
+      }, 800);
+    };
+  </script>
+
+</body>
+</html>
